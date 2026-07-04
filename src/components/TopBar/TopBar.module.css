@@ -1,0 +1,122 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--cream);
+  border-bottom: 1px solid var(--olive-20);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 62px;
+  padding-top: 4px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 58px;
+}
+
+.logo {
+  font-family: var(--font-logo);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.16;
+  color: var(--green-dark);
+  padding-inline: 10px;
+}
+
+.nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.navLink {
+  position: relative;
+  padding: 8px 12px 12px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: var(--nav-gray);
+  transition: color 0.2s ease;
+}
+
+.navLink[data-active="true"] {
+  font-weight: 600;
+  color: var(--green-dark);
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 100px;
+  height: 4px;
+  border-radius: 4px 4px 0 0;
+  background: var(--blue);
+  transition: transform 0.25s ease;
+}
+
+.navLink:hover::after,
+.navLink:focus-visible::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.navLink[data-active="true"]::after {
+  content: none;
+}
+
+.indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 4px;
+  border-radius: 4px 4px 0 0;
+  background: var(--green-dark);
+  transition:
+    transform 0.3s ease,
+    opacity 0.2s ease;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.iconButton {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 11px;
+  border-radius: 6px;
+}
+
+.iconButton[data-dot="true"]::after {
+  content: "";
+  position: absolute;
+  left: 26px;
+  top: 15px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ff5630;
+  box-shadow: 0 0 0 1.5px var(--cream);
+}
+
+@media (max-width: 900px) {
+  .menu {
+    gap: 24px;
+  }
+  .nav {
+    display: none;
+  }
+}
