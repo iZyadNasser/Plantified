@@ -90,7 +90,7 @@ export function ProductShowcase() {
             className={styles.window}
             style={{ aspectRatio: `450 / ${plant.displayHeight}` }}
           >
-            <Reveal style={{ width: "100%", height: "100%" }} delay={0}>
+            <Reveal style={{ width: "100%", height: "100%" }} delay={0} threshold={0} rootMargin="0px">
               <img
                 key={plant.id}
                 className={styles.plantImage}
@@ -110,10 +110,10 @@ export function ProductShowcase() {
             aria-live="polite"
           >
             <div key={plant.id} className={styles.infoFade}>
-              <Reveal as="h2" className={styles.title} id="product-heading" delay={50}>
+              <Reveal as="h2" className={styles.title} id="product-heading" delay={50} threshold={0} rootMargin="0px">
                 {plant.name}
               </Reveal>
-              <Reveal as="p" className={styles.description} delay={100}>
+              <Reveal as="p" className={styles.description} delay={100} threshold={0} rootMargin="0px">
                 {plant.description}
               </Reveal>
 
@@ -125,7 +125,7 @@ export function ProductShowcase() {
                     ["Watering", plant.watering, specIcons.watering],
                   ] as const
                 ).map(([label, value, icon], i) => (
-                  <Reveal as="li" className={styles.spec} key={label} delay={150 + i * 50}>
+                  <Reveal as="li" className={styles.spec} key={label} delay={150 + i * 50} threshold={0} rootMargin="0px">
                     <img src={icon} alt="" width={24} height={24} aria-hidden />
                     <div>
                       <span className={styles.specLabel}>{label}</span>
@@ -135,7 +135,7 @@ export function ProductShowcase() {
                 ))}
               </ul>
 
-              <Reveal delay={300}>
+              <Reveal delay={300} threshold={0} rootMargin="0px">
                 <button type="button" className={styles.addButton}>
                   <span className={styles.addLabel}>
                     Add to my desk
@@ -161,7 +161,7 @@ export function ProductShowcase() {
             aria-label="Choose a plant"
           >
             {plants.map((p, i) => (
-              <Reveal key={p.id} delay={350 + i * 50}>
+              <Reveal key={p.id} delay={350 + i * 50} threshold={0} rootMargin="0px">
                 <button
                   id={`plant-tab-${p.id}`}
                   type="button"

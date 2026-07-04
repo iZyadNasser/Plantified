@@ -12,12 +12,16 @@ type RevealProps = ComponentPropsWithoutRef<"div"> & {
   children: ReactNode;
   as?: ElementType;
   delay?: number;
+  threshold?: number;
+  rootMargin?: string;
 };
 
 export function Reveal({
   children,
   as: Tag = "div",
   delay = 0,
+  threshold = 0.15,
+  rootMargin = "0px 0px -8% 0px",
   className,
   style,
   ...rest
@@ -44,7 +48,7 @@ export function Reveal({
           obs.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+      { threshold, rootMargin },
     );
 
     observer.observe(el);
