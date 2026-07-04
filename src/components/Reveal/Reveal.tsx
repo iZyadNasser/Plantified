@@ -2,18 +2,16 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  type ComponentPropsWithoutRef,
   type ElementType,
   type ReactNode,
 } from "react";
 import styles from "./Reveal.module.css";
 
-type RevealProps = {
+type RevealProps = ComponentPropsWithoutRef<"div"> & {
   children: ReactNode;
-
   as?: ElementType;
-
   delay?: number;
-  className?: string;
 };
 
 export function Reveal({
@@ -21,6 +19,8 @@ export function Reveal({
   as: Tag = "div",
   delay = 0,
   className,
+  style,
+  ...rest
 }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
 
@@ -56,7 +56,11 @@ export function Reveal({
       ref={ref}
       className={`${styles.reveal}${className ? ` ${className}` : ""}`}
       data-revealed={revealed}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      style={{
+        ...style,
+        ...(delay ? { transitionDelay: `${delay}ms` } : {}),
+      }}
+      {...rest}
     >
       {children}
     </Tag>

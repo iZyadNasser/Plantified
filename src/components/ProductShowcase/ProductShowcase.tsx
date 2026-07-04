@@ -1,5 +1,6 @@
 import { useState, type CSSProperties, type KeyboardEvent } from "react";
 import { plants, type Crop } from "../../data/plants";
+import { Reveal } from "../Reveal/Reveal";
 import styles from "./ProductShowcase.module.css";
 import { asset } from "../../lib/asset";
 
@@ -89,15 +90,17 @@ export function ProductShowcase() {
             className={styles.window}
             style={{ aspectRatio: `450 / ${plant.displayHeight}` }}
           >
-            <img
-              key={plant.id}
-              className={styles.plantImage}
-              style={cropStyle(plant.crop)}
-              src={plant.image}
-              alt={plant.alt}
-              loading="lazy"
-              decoding="async"
-            />
+            <Reveal style={{ width: "100%", height: "100%" }} delay={0}>
+              <img
+                key={plant.id}
+                className={styles.plantImage}
+                style={cropStyle(plant.crop)}
+                src={plant.image}
+                alt={plant.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </Reveal>
           </div>
 
           <div
@@ -107,10 +110,12 @@ export function ProductShowcase() {
             aria-live="polite"
           >
             <div key={plant.id} className={styles.infoFade}>
-              <h2 className={styles.title} id="product-heading">
+              <Reveal as="h2" className={styles.title} id="product-heading" delay={80}>
                 {plant.name}
-              </h2>
-              <p className={styles.description}>{plant.description}</p>
+              </Reveal>
+              <Reveal as="p" className={styles.description} delay={160}>
+                {plant.description}
+              </Reveal>
 
               <ul className={styles.specs}>
                 {(
@@ -119,32 +124,34 @@ export function ProductShowcase() {
                     ["Avg Height", plant.height, specIcons.height],
                     ["Watering", plant.watering, specIcons.watering],
                   ] as const
-                ).map(([label, value, icon]) => (
-                  <li className={styles.spec} key={label}>
+                ).map(([label, value, icon], i) => (
+                  <Reveal as="li" className={styles.spec} key={label} delay={240 + i * 80}>
                     <img src={icon} alt="" width={24} height={24} aria-hidden />
                     <div>
                       <span className={styles.specLabel}>{label}</span>
                       <span className={styles.specValue}>{value}</span>
                     </div>
-                  </li>
+                  </Reveal>
                 ))}
               </ul>
 
-              <button type="button" className={styles.addButton}>
-                <span className={styles.addLabel}>
-                  Add to my desk
-                  <span className={styles.dot} aria-hidden="true" />
-                  {plant.price}
-                </span>
-                <span className={styles.basket} aria-hidden="true">
-                  <img
-                    src={asset("assets/icons/basket-add.svg")}
-                    alt=""
-                    width={24}
-                    height={24}
-                  />
-                </span>
-              </button>
+              <Reveal delay={480}>
+                <button type="button" className={styles.addButton}>
+                  <span className={styles.addLabel}>
+                    Add to my desk
+                    <span className={styles.dot} aria-hidden="true" />
+                    {plant.price}
+                  </span>
+                  <span className={styles.basket} aria-hidden="true">
+                    <img
+                      src={asset("assets/icons/basket-add.svg")}
+                      alt=""
+                      width={24}
+                      height={24}
+                    />
+                  </span>
+                </button>
+              </Reveal>
             </div>
           </div>
 
@@ -154,28 +161,29 @@ export function ProductShowcase() {
             aria-label="Choose a plant"
           >
             {plants.map((p, i) => (
-              <button
-                key={p.id}
-                id={`plant-tab-${p.id}`}
-                type="button"
-                role="tab"
-                aria-selected={i === active}
-                aria-controls="plant-panel"
-                aria-label={p.name}
-                tabIndex={i === active ? 0 : -1}
-                className={styles.thumb}
-                data-active={i === active}
-                onClick={() => setActive(i)}
-                onKeyDown={handleKeyDown}
-              >
-                <span className={styles.thumbFrame}>
-                  <span
-                    className={styles.thumbImg}
-                    style={thumbStyle(p.thumbCrop, p.thumb)}
-                    aria-hidden="true"
-                  />
-                </span>
-              </button>
+              <Reveal key={p.id} delay={560 + i * 80}>
+                <button
+                  id={`plant-tab-${p.id}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === active}
+                  aria-controls="plant-panel"
+                  aria-label={p.name}
+                  tabIndex={i === active ? 0 : -1}
+                  className={styles.thumb}
+                  data-active={i === active}
+                  onClick={() => setActive(i)}
+                  onKeyDown={handleKeyDown}
+                >
+                  <span className={styles.thumbFrame}>
+                    <span
+                      className={styles.thumbImg}
+                      style={thumbStyle(p.thumbCrop, p.thumb)}
+                      aria-hidden="true"
+                    />
+                  </span>
+                </button>
+              </Reveal>
             ))}
           </div>
         </div>
