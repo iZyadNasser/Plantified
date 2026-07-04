@@ -38,6 +38,8 @@
   width: 263px;
   height: 137px;
   pointer-events: none;
+  transform-origin: center left;
+  animation: leaf-sway 4s ease-in-out infinite;
 }
 
 .plant {
@@ -186,5 +188,21 @@
 @media (max-width: 520px) {
   .heading {
     font-size: 28px;
+  }
+}
+
+@keyframes leaf-sway {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaf {
+    animation: none;
   }
 }
